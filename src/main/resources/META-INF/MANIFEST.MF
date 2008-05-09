@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 1
+Bundle-Name: Nuxeo ECM Audit Web Access Log
+Bundle-SymbolicName: org.nuxeo.ecm.platform.audit.web.access;singleton:=true
+Bundle-Version: ${eclipseVersion}-r${buildNumber}
+Provide-Package: org.nuxeo.ecm.platform.audit.web.access
+Require-Bundle: org.nuxeo.ecm.platform.audit,
+ org.nuxeo.ecm.webapp.core
+Nuxeo-Component: OSGI-INF/nxaudit-service-contrib.xml
+Nuxeo-RequiredBy: org.nuxeo.ecm.war
