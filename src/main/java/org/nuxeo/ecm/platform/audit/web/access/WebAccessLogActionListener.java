@@ -21,41 +21,26 @@ package org.nuxeo.ecm.platform.audit.web.access;
 
 import static org.jboss.seam.ScopeType.CONVERSATION;
 
-import java.io.Serializable;
 import java.security.Principal;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.ejb.Local;
-import javax.ejb.Remote;
-import javax.ejb.Remove;
-import javax.ejb.Stateful;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.jboss.annotation.ejb.SerializedConcurrentAccess;
-import org.jboss.seam.annotations.Destroy;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Observer;
 import org.jboss.seam.annotations.Scope;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModel;
-import org.nuxeo.ecm.core.api.event.CoreEvent;
 import org.nuxeo.ecm.core.api.event.CoreEventConstants;
 import org.nuxeo.ecm.core.api.event.DocumentEventCategories;
-import org.nuxeo.ecm.core.api.event.impl.CoreEventImpl;
+import org.nuxeo.ecm.core.event.Event;
+import org.nuxeo.ecm.core.event.EventService;
+import org.nuxeo.ecm.core.event.impl.DocumentEventContext;
 import org.nuxeo.ecm.platform.audit.web.access.api.AccessLogObserver;
 import org.nuxeo.ecm.platform.audit.web.access.api.WebAccessConstants;
-import org.nuxeo.ecm.platform.audit.web.access.api.local.AccessLogObserverLocal;
-import org.nuxeo.ecm.platform.audit.web.access.api.remote.AccessLogObserverRemote;
-import org.nuxeo.ecm.platform.events.api.DocumentMessageProducer;
-import org.nuxeo.ecm.platform.events.api.DocumentMessageProducerException;
-import org.nuxeo.ecm.platform.events.api.EventMessage;
-import org.nuxeo.ecm.platform.events.api.delegate.DocumentMessageProducerBusinessDelegate;
-import org.nuxeo.ecm.platform.events.api.impl.DocumentMessageImpl;
 import org.nuxeo.ecm.platform.ui.web.api.NavigationContext;
 import org.nuxeo.ecm.webapp.helpers.EventNames;
+import org.nuxeo.runtime.api.Framework;
 
 /**
  * Access log action listener.
@@ -66,14 +51,12 @@ import org.nuxeo.ecm.webapp.helpers.EventNames;
  * </p>
  *
  * @author <a href="mailto:ja@nuxeo.com">Julien Anguenot</a>
+ * @author <a href="mailto:vdutat@yahoo.fr">Vincent Dutat</a>
+ *
  *
  */
-@Stateful
-@Local(AccessLogObserverLocal.class)
-@Remote(AccessLogObserverRemote.class)
 @Name("webAccessLogObserver")
 @Scope(CONVERSATION)
-@SerializedConcurrentAccess
 public class WebAccessLogActionListener implements AccessLogObserver {
 
     private static final long serialVersionUID = 1L;
@@ -86,37 +69,36 @@ public class WebAccessLogActionListener implements AccessLogObserver {
     @In(create = true)
     protected Principal currentUser;
 
-    protected transient DocumentMessageProducer producer;
-
-    @Destroy
-    @Remove
-    public void destroy() {
-        log.debug("Removing SEAM component...");
-    }
-
-    protected DocumentMessageProducer getProducer()
-            throws DocumentMessageProducerException {
-        if (producer == null) {
-            producer = DocumentMessageProducerBusinessDelegate.getRemoteDocumentMessageProducer();
-        }
-        return producer;
-    }
-
     @Observer( { EventNames.USER_ALL_DOCUMENT_TYPES_SELECTION_CHANGED })
-    public void log() throws DocumentMessageProducerException {
-        DocumentMessageProducer producer = getProducer();
+    public void log() {
         DocumentModel dm = navigationContext.getCurrentDocument();
-        Map<String, Serializable> props = new HashMap<String, Serializable>();
+        DocumentEventContext ctx = new DocumentEventContext(navigationContext.getCurrentDocument().getCoreSession(),
+                currentUser, dm);
+        ctx.setCategory(DocumentEventCategories.EVENT_DOCUMENT_CATEGORY);
         try {
-            props.put(CoreEventConstants.DOC_LIFE_CYCLE,
-                    dm.getCurrentLifeCycleState());
-        } catch (ClientException ce) {
-            throw new DocumentMessageProducerException(ce.getMessage(), ce);
+            ctx.setProperty(CoreEventConstants.DOC_LIFE_CYCLE, dm.getCurrentLifeCycleState());
+            ctx.setProperty(CoreEventConstants.SESSION_ID, dm.getSessionId());
+        } catch (ClientException e1) {
+            log.error("Error while getting document's lifecycle or session ID", e1);
         }
-        CoreEvent event = new CoreEventImpl(WebAccessConstants.EVENT_ID, dm,
-                props, currentUser,
-                DocumentEventCategories.EVENT_DOCUMENT_CATEGORY, null);
-        EventMessage msg = new DocumentMessageImpl(dm, event);
-        producer.produce(msg);
+        Event event = ctx.newEvent(WebAccessConstants.EVENT_ID);
+        EventService evtService = null;
+
+        try {
+            evtService = Framework.getService(EventService.class);
+        }
+        catch (Exception e) {
+            log.error("Cannot find EventService", e);
+        }
+
+        if (evtService != null) {
+            log.debug("Sending scheduled event id=" + WebAccessConstants.EVENT_ID + ", category="
+                    + DocumentEventCategories.EVENT_DOCUMENT_CATEGORY);
+            try {
+                evtService.fireEvent(event);
+            } catch (ClientException e) {
+                log.error("Error while sending event to EventService", e);
+            }
+        }
     }
 }

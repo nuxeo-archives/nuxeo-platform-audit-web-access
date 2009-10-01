@@ -9,8 +9,7 @@
 
   <artifactId>nuxeo-platform-audit-web-access</artifactId>
   <name>Nuxeo Audit Service - Web Access Logs</name>
-  <packaging>ejb</packaging>
-  <description>Nuxeo Enterprise Platform: Audit Web Access Logs.</description>
+  <description>Uses Audit service to trac access to documents via Web interface.</description>
   <version>5.2.1-SNAPSHOT</version>
 
   <dependencies>
@@ -21,11 +20,6 @@
     <dependency>
       <groupId>org.nuxeo.ecm.platform</groupId>
       <artifactId>nuxeo-platform-webapp-core</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>javax.ejb</groupId>
-      <artifactId>ejb-api</artifactId>
-      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.jboss.seam</groupId>

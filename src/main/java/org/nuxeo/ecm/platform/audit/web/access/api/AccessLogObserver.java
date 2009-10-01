@@ -21,8 +21,6 @@ package org.nuxeo.ecm.platform.audit.web.access.api;
 
 import java.io.Serializable;
 
-import org.nuxeo.ecm.platform.events.api.DocumentMessageProducerException;
-
 /**
  * Interface for access log observer.
  *
@@ -36,6 +34,6 @@ public interface AccessLogObserver extends Serializable {
      *
      * @throws DocumentMessageProducerException
      */
-    void log() throws DocumentMessageProducerException;
+    void log();
 
 }
