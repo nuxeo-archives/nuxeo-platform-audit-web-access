@@ -72,6 +72,9 @@ public class WebAccessLogActionListener implements AccessLogObserver {
     @Observer( { EventNames.USER_ALL_DOCUMENT_TYPES_SELECTION_CHANGED })
     public void log() {
         DocumentModel dm = navigationContext.getCurrentDocument();
+        if (dm==null) {
+            return;
+        }
         DocumentEventContext ctx = new DocumentEventContext(navigationContext.getCurrentDocument().getCoreSession(),
                 currentUser, dm);
         ctx.setCategory(DocumentEventCategories.EVENT_DOCUMENT_CATEGORY);
