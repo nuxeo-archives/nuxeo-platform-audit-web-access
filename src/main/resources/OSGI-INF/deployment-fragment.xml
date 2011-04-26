@@ -1,14 +1,8 @@
 <?xml version="1.0"?>
+<fragment version="1">
 
-<fragment>
-
-	<extension target="application#MODULE">
-
-		<module>
-			<ejb>${bundle.fileName}</ejb>
-		</module>
-
-	</extension>
+  <require>org.nuxeo.ecm.platform.lang</require>
+  <require>org.nuxeo.ecm.webapp.core</require>
 
 	<install>
 		<!--  create a temp dir -->
@@ -35,8 +29,8 @@
 			from="nxaudit-web-access.tmp/OSGI-INF/l10n/messages_de.properties"
 			to="nuxeo.war/WEB-INF/classes/messages_de.properties"
 			addNewLine="true" />
-
 		<delete path="nxaudit-web-access.tmp" />
+
 	</install>
 
 </fragment>
