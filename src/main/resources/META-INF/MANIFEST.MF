@@ -6,5 +6,5 @@ Bundle-Version: ${eclipseVersion}-r${buildNumber}
 Provide-Package: org.nuxeo.ecm.platform.audit.web.access
 Require-Bundle: org.nuxeo.ecm.platform.audit,
  org.nuxeo.ecm.webapp.core
-Nuxeo-Component: OSGI-INF/nxaudit-service-contrib.xml
-
+Nuxeo-Component: OSGI-INF/nxaudit-service-contrib.xml,
+ OSGI-INF/AuditWebAccessComponent.xml

@@ -29,4 +29,6 @@ public final class WebAccessConstants {
 
     public static final String EVENT_ID = "documentAccessed";
 
+    public static final String DIRECTORY_ID = "eventTypes";
+
 }
