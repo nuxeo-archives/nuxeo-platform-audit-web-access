@@ -53,9 +53,9 @@
   </repositories>
 
   <scm>
-    <connection>scm:hg:http://hg.nuxeo.org/addons/nuxeo-platform-audit-web-access</connection>
-    <developerConnection>scm:hg:https://hg.nuxeo.org/addons/nuxeo-platform-audit-web-access</developerConnection>
-    <url>http://hg.nuxeo.org/addons/nuxeo-platform-audit-web-access</url>
+    <connection>scm:git:git://github.com/nuxeo/nuxeo-platform-audit-web-access.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com:nuxeo/nuxeo-platform-audit-web-access.git</developerConnection>
+    <url>https://github.com/nuxeo/nuxeo-platform-audit-web-access</url>
   </scm>
 
 </project>
