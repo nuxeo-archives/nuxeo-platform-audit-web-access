@@ -69,7 +69,7 @@ public class WebAccessLogActionListener implements AccessLogObserver {
     @In(create = true)
     protected Principal currentUser;
 
-    @Observer( { EventNames.USER_ALL_DOCUMENT_TYPES_SELECTION_CHANGED })
+    @Observer(value = { EventNames.USER_ALL_DOCUMENT_TYPES_SELECTION_CHANGED }, create = true)
     public void log() {
         DocumentModel dm = navigationContext.getCurrentDocument();
         if (dm==null) {
