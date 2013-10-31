@@ -5,13 +5,13 @@
   <parent>
     <groupId>org.nuxeo.ecm.distribution</groupId>
     <artifactId>nuxeo-distribution</artifactId>
-    <version>5.7.2-SNAPSHOT</version>
+    <version>5.8-SNAPSHOT</version>
   </parent>
 
 
   <artifactId>nuxeo-marketplace-audit-web-access</artifactId>
   <packaging>zip</packaging>
-  <version>1.1-SNAPSHOT</version>
+  <version>1.2-SNAPSHOT</version>
   <name>Marketplace package of Audit Web Access</name>
   
   <dependencyManagement>
