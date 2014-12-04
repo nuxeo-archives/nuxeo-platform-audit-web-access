@@ -4,14 +4,14 @@
   <parent>
     <groupId>org.nuxeo.ecm.distribution</groupId>
     <artifactId>nuxeo-distribution</artifactId>
-    <version>6.0-HF01-SNAPSHOT</version>
+    <version>6.0</version>
     <relativePath></relativePath>
   </parent>
 
 
   <artifactId>nuxeo-marketplace-audit-web-access</artifactId>
   <packaging>zip</packaging>
-  <version>1.4-SNAPSHOT</version>
+  <version>1.4</version>
   <name>Marketplace package of Audit Web Access</name>
 
   <build>
