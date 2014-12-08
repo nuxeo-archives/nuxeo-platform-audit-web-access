@@ -44,16 +44,12 @@ import org.nuxeo.runtime.api.Framework;
 
 /**
  * Access log action listener.
- *
  * <p>
- * Responsible of logging web access. Attention, this will decrease the
- * performances of the webapp.
+ * Responsible of logging web access. Attention, this will decrease the performances of the webapp.
  * </p>
  *
  * @author <a href="mailto:ja@nuxeo.com">Julien Anguenot</a>
  * @author <a href="mailto:vdutat@yahoo.fr">Vincent Dutat</a>
- *
- *
  */
 @Name("webAccessLogObserver")
 @Scope(CONVERSATION)
@@ -72,7 +68,7 @@ public class WebAccessLogActionListener implements AccessLogObserver {
     @Observer(value = { EventNames.USER_ALL_DOCUMENT_TYPES_SELECTION_CHANGED }, create = true)
     public void log() {
         DocumentModel dm = navigationContext.getCurrentDocument();
-        if (dm==null) {
+        if (dm == null) {
             return;
         }
         DocumentEventContext ctx = new DocumentEventContext(navigationContext.getCurrentDocument().getCoreSession(),
@@ -89,8 +85,7 @@ public class WebAccessLogActionListener implements AccessLogObserver {
 
         try {
             evtService = Framework.getService(EventService.class);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             log.error("Cannot find EventService", e);
         }
 

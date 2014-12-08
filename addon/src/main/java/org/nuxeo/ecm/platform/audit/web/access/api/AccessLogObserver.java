@@ -25,7 +25,6 @@ import java.io.Serializable;
  * Interface for access log observer.
  *
  * @author <a href="mailto:ja@nuxeo.com">Julien Anguenot</a>
- *
  */
 public interface AccessLogObserver extends Serializable {
 
