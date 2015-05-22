@@ -14,14 +14,12 @@
       <include>OSGI-INF/l10n/**</include>
     </unzip>
 
-    <append from="nxaudit-web-access.tmp/OSGI-INF/l10n/messages.properties"
+    <append from="nxaudit-web-access.tmp/OSGI-INF/l10n/messages_en_US.properties"
       to="nuxeo.war/WEB-INF/classes/messages.properties" addNewLine="true" />
-    <append from="nxaudit-web-access.tmp/OSGI-INF/l10n/messages_en.properties"
+    <append from="nxaudit-web-access.tmp/OSGI-INF/l10n/messages_en_US.properties"
       to="nuxeo.war/WEB-INF/classes/messages_en.properties" addNewLine="true" />
-    <append from="nxaudit-web-access.tmp/OSGI-INF/l10n/messages_fr.properties"
-      to="nuxeo.war/WEB-INF/classes/messages_fr.properties" addNewLine="true" />
-    <append from="nxaudit-web-access.tmp/OSGI-INF/l10n/messages_de.properties"
-      to="nuxeo.war/WEB-INF/classes/messages_de.properties" addNewLine="true" />
+    <append from="nxaudit-web-access.tmp/OSGI-INF/l10n/messages_en_US.properties"
+      to="nuxeo.war/WEB-INF/classes/messages_en_US.properties" addNewLine="true" />
     <delete path="nxaudit-web-access.tmp" />
 
   </install>
