@@ -29,7 +29,6 @@ import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Observer;
 import org.jboss.seam.annotations.Scope;
-import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.event.CoreEventConstants;
 import org.nuxeo.ecm.core.api.event.DocumentEventCategories;
@@ -74,29 +73,12 @@ public class WebAccessLogActionListener implements AccessLogObserver {
         DocumentEventContext ctx = new DocumentEventContext(navigationContext.getCurrentDocument().getCoreSession(),
                 currentUser, dm);
         ctx.setCategory(DocumentEventCategories.EVENT_DOCUMENT_CATEGORY);
-        try {
-            ctx.setProperty(CoreEventConstants.DOC_LIFE_CYCLE, dm.getCurrentLifeCycleState());
-            ctx.setProperty(CoreEventConstants.SESSION_ID, dm.getSessionId());
-        } catch (ClientException e1) {
-            log.error("Error while getting document's lifecycle or session ID", e1);
-        }
+        ctx.setProperty(CoreEventConstants.DOC_LIFE_CYCLE, dm.getCurrentLifeCycleState());
+        ctx.setProperty(CoreEventConstants.SESSION_ID, dm.getSessionId());
         Event event = ctx.newEvent(WebAccessConstants.EVENT_ID);
-        EventService evtService = null;
-
-        try {
-            evtService = Framework.getService(EventService.class);
-        } catch (Exception e) {
-            log.error("Cannot find EventService", e);
-        }
-
-        if (evtService != null) {
-            log.debug("Sending scheduled event id=" + WebAccessConstants.EVENT_ID + ", category="
-                    + DocumentEventCategories.EVENT_DOCUMENT_CATEGORY);
-            try {
-                evtService.fireEvent(event);
-            } catch (ClientException e) {
-                log.error("Error while sending event to EventService", e);
-            }
-        }
+        EventService evtService = Framework.getService(EventService.class);
+        log.debug("Sending scheduled event id=" + WebAccessConstants.EVENT_ID + ", category="
+                + DocumentEventCategories.EVENT_DOCUMENT_CATEGORY);
+        evtService.fireEvent(event);
     }
 }
