@@ -1,3 +1,0 @@
-<install>
-  <update dir="${package.root}/install/bundles" todir="${env.bundles}" />
-</install>
