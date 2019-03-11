@@ -9,7 +9,7 @@
   <production-state>testing</production-state>
   <nuxeo-validation>none</nuxeo-validation>
   <platforms>
-    <platform>cap-@DISTVERSION@</platform>
+    <platform>server-@DISTVERSION@</platform>
   </platforms>
   <visibility>MARKETPLACE</visibility>
 </package>
