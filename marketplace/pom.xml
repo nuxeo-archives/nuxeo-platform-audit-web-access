@@ -11,6 +11,12 @@
   <artifactId>nuxeo-marketplace-audit-web-access</artifactId>
   <packaging>zip</packaging>
   <name>Marketplace package of Audit Web Access</name>
+  <version>1.6.0-SNAPSHOT</version>
+
+  <properties>
+    <marketplace.awa.version>1.6.0-SNAPSHOT</marketplace.awa.version>
+    <nuxeo.target.version>8.10</nuxeo.target.version>
+  </properties>
 
   <dependencies>
     <dependency>
