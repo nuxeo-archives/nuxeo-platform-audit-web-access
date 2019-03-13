@@ -10,6 +10,7 @@
   <nuxeo-validation>none</nuxeo-validation>
   <platforms>
     <platform>server-@DISTVERSION@</platform>
+    <platform>server-@DISTVERSION@-*</platform>
   </platforms>
   <visibility>MARKETPLACE</visibility>
 </package>
