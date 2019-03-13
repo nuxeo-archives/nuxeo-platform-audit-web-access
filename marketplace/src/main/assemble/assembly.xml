@@ -13,7 +13,7 @@
       <fileset dir="src/main/resources" />
       <filterset>
         <filter token="VERSION" value="${marketplace.awa.version}" />
-        <filter token="DISTVERSION" value="${nuxeo.target.version}" />
+        <filter token="TARGETVERSION" value="${nuxeo.target.version}" />
       </filterset>
     </copy>
 

@@ -9,8 +9,8 @@
   <production-state>testing</production-state>
   <nuxeo-validation>none</nuxeo-validation>
   <platforms>
-    <platform>server-@DISTVERSION@</platform>
-    <platform>server-@DISTVERSION@-*</platform>
+    <platform>server-@TARGETVERSION@</platform>
+    <platform>server-@TARGETVERSION@-*</platform>
   </platforms>
   <visibility>MARKETPLACE</visibility>
 </package>
